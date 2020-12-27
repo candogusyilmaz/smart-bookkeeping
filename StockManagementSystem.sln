@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29509.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagementSystem.UI", "StockManagementSystem.UI\StockManagementSystem.UI.csproj", "{21319E42-263A-4542-9A7E-FE06A87F0504}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockManagementSystem.Library", "StockManagementSystem.Library\StockManagementSystem.Library.csproj", "{7A9F1792-9B59-4D04-9A2A-70E2C68753F8}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{21319E42-263A-4542-9A7E-FE06A87F0504}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{21319E42-263A-4542-9A7E-FE06A87F0504}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{21319E42-263A-4542-9A7E-FE06A87F0504}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{21319E42-263A-4542-9A7E-FE06A87F0504}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7A9F1792-9B59-4D04-9A2A-70E2C68753F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7A9F1792-9B59-4D04-9A2A-70E2C68753F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7A9F1792-9B59-4D04-9A2A-70E2C68753F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7A9F1792-9B59-4D04-9A2A-70E2C68753F8}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {C4C621D8-360B-480C-973A-479F03407161}
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,114 @@
+﻿<UserControl x:Class="StockManagementSystem.UI.Views.ClientPaymentsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:StockManagementSystem.UI.Views"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             xmlns:l="clr-namespace:StockManagementSystem.UI.Converters"
+             mc:Ignorable="d" Style="{StaticResource BaseUserControlStyle}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <l:AmountToCurrencyConverter x:Key="AmountConverter" />
+        <l:DateTimeToShortDateConverter x:Key="DateConverter" />
+        <l:IncomeStatusToTextConverter x:Key="TypeConverter" />
+        <l:ClientPaymentTypeToStringConverter x:Key="CPaymentTypeConverter" />
+    </UserControl.Resources>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0 5 0 15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource 5MarginBottomBorderBottomStyle}">
+                <StackPanel Style="{StaticResource UserControlTitleStyle}">
+                    <Button Margin="0 0 5 0" x:Name="BackToClientList">
+                        <ui:SymbolIcon Symbol="Back" Width="12" Height="12" Margin="2"/>
+                    </Button>
+                    <ui:SymbolIcon Symbol="Contact" VerticalAlignment="Center"/>
+                    <TextBlock Style="{StaticResource UserControlTitleTextBlockStyle}"
+                               Text="{Binding Client.FullName, Mode=OneTime,FallbackValue='Client name'}"/>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Column="0" Grid.Row="1">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Foreground="DimGray" Text="{Binding MonthString, Mode=OneWay,FallbackValue='Ocak, 2020: '}" />
+                    <TextBlock Foreground="DimGray" Text="{Binding MonthTotalAmount, Mode=OneWay, Converter={StaticResource AmountConverter}, FallbackValue='0,000.00 $'}" />
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10 0">
+                    <TextBlock FontSize="12" Foreground="DarkGray" Text="Kredi Kartı: "/>
+                    <TextBlock FontSize="12" Foreground="DarkGray" Text="{Binding MonthCreditCardAmount, Mode=OneWay, Converter={StaticResource AmountConverter}}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10 0">
+                    <TextBlock FontSize="12" Foreground="DarkGray" Text="Nakit: "/>
+                    <TextBlock FontSize="12" Foreground="DarkGray" Text="{Binding MonthCashAmount, Mode=OneWay, Converter={StaticResource AmountConverter}}"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="10 0">
+                    <TextBlock FontSize="12" Foreground="DarkOrange" Text="Veresiye: "/>
+                    <TextBlock FontSize="12" Foreground="DarkOrange" Text="{Binding MonthOpenAccountAmount, Mode=OneWay, Converter={StaticResource AmountConverter}}"/>
+                </StackPanel>
+                <StackPanel.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="Ocak" Tag="1" Click="ChangeMonth" />
+                        <MenuItem Header="Şubat" Tag="2" Click="ChangeMonth"/>
+                        <MenuItem Header="Mart" Tag="3" Click="ChangeMonth"/>
+                        <MenuItem Header="Nisan" Tag="4" Click="ChangeMonth"/>
+                        <MenuItem Header="Mayıs" Tag="5" Click="ChangeMonth"/>
+                        <MenuItem Header="Haziran" Tag="6" Click="ChangeMonth"/>
+                        <MenuItem Header="Temmuz" Tag="7" Click="ChangeMonth"/>
+                        <MenuItem Header="Ağustos" Tag="8" Click="ChangeMonth"/>
+                        <MenuItem Header="Eylül" Tag="9" Click="ChangeMonth"/>
+                        <MenuItem Header="Ekim" Tag="10" Click="ChangeMonth"/>
+                        <MenuItem Header="Kasım" Tag="11" Click="ChangeMonth"/>
+                        <MenuItem Header="Aralık" Tag="12" Click="ChangeMonth"/>
+                    </ContextMenu>
+                </StackPanel.ContextMenu>
+            </StackPanel>
+
+            <Button Grid.Column="1" Grid.Row="1" Padding="10 8" Click="NewClientPayment" VerticalAlignment="Bottom">Yeni Ödeme</Button>
+        </Grid>
+
+        <DataGrid x:Name="dataGrid" Grid.Row="1" Style="{StaticResource BaseDataGridStyle}"
+                  SelectedItem="{Binding SelectedClientPayment, Mode=OneWayToSource}"
+                  ItemsSource="{Binding FilteredClientPayments}">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow" BasedOn="{StaticResource DefaultDataGridRowStyle}">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Type}" Value="0">
+                            <Setter Property="Foreground" Value="DarkOrange"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="1">
+                            <Setter Property="Foreground" Value="Green"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="2">
+                            <Setter Property="Foreground" Value="Green"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Açıklama" Binding="{Binding Note}" Width="*" MinWidth="100"/>
+                <DataGridTextColumn Header="Tutar" Width="SizeToCells" MinWidth="100"
+                                    Binding="{Binding Amount, Converter={StaticResource AmountConverter}}" />
+                <DataGridTextColumn Header="Tür" Width="SizeToCells" MinWidth="100"
+                                    Binding="{Binding Type, Converter={StaticResource CPaymentTypeConverter}}" />
+                <DataGridTextColumn Header="Tarih" Width="SizeToCells" MinWidth="100"
+                                    Binding="{Binding Date, Converter={StaticResource DateConverter}}" />
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Öde" Click="ChangeStatusToPaid" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+</UserControl>

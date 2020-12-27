@@ -1,0 +1,65 @@
+﻿<Window x:Class="StockManagementSystem.UI.Windows.ClientPaymentWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockManagementSystem.UI.Windows"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        mc:Ignorable="d" 
+        Style="{StaticResource DialogWindowStyle}">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" BorderThickness="0 0 0 1" BorderBrush="Coral" Margin="0 0 0 10">
+            <TextBlock 
+            FontSize="18" HorizontalAlignment="Center" Margin="0 10 0 15">
+            Müşteri İşlem
+            </TextBlock>
+        </Border>
+
+        <StackPanel Grid.Row="1" Margin="0 0 0 5">
+            <TextBlock  Margin="12 0 0 5">Açıklama</TextBlock>
+            <TextBox Padding="5" Margin="5 0" x:Name="txtNote"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Margin="0 0 0 5">
+            <TextBlock  Margin="12 0 0 2">Miktar (TL)</TextBlock>
+            <ui:NumberBox Padding="5" Margin="5 0" 
+                          InputScope="CurrencyAmount" PlaceholderText="0,00 TL" Minimum="0"
+                          x:Name="nbAmount"></ui:NumberBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Margin="0 0 0 5">
+            <TextBlock  Margin="12 0 0 2">Tür</TextBlock>
+            <ComboBox Padding="10 5" Margin="5 0" x:Name="cmbType" SelectionChanged="PaymentTypeChanged">
+                <ComboBoxItem Content="Kredi Kartı" />
+                <ComboBoxItem Content="Nakit" />
+                <ComboBoxItem Content="Veresiye" />
+            </ComboBox>
+        </StackPanel>
+
+        <StackPanel Grid.Row="4" Margin="0 0 0 5" x:Name="installmentStackPanel">
+            <TextBlock  Margin="12 0 0 2">Taksit Sayısı</TextBlock>
+            <ui:NumberBox Padding="5" Margin="5 0" InputScope="Digits" Value="1" Minimum="1" Maximum="99" x:Name="nbInstallment"/>
+        </StackPanel>
+        
+        <StackPanel Grid.Row="5" Margin="0 0 0 5">
+            <TextBlock  Margin="12 0 0 2">Tarih</TextBlock>
+            <DatePicker Padding="5" Margin="5 0" SelectedDateFormat="Long" x:Name="dtDate"/>
+        </StackPanel>
+
+        <Border Grid.Row="7" BorderThickness="0 1 0 0" BorderBrush="LightGray" Margin="0 0 0 10">
+            <Button Width="90" Margin="0 10 5 0" HorizontalAlignment="Right" Click="SaveChanges">Kaydet</Button>
+        </Border>
+    </Grid>
+</Window>

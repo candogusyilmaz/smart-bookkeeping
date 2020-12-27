@@ -1,0 +1,22 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+    <Style x:Key="BaseDataGridStyle" TargetType="DataGrid" BasedOn="{StaticResource DefaultDataGridStyle}">
+        <Setter Property="CanUserAddRows" Value="False"/>
+        <Setter Property="CanUserDeleteRows" Value="False"/>
+        <Setter Property="CanUserReorderColumns" Value="False"/>
+        <Setter Property="HeadersVisibility" Value="Column"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="SelectionMode" Value="Single"/>
+        <Setter Property="IsReadOnly" Value="True"/>
+        <Setter Property="BorderBrush" Value="{StaticResource SystemControlBackgroundAccentRevealBorderBrush}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="AutoGenerateColumns" Value="false"/>
+        <Setter Property="ColumnWidth" Value="auto" />
+        <Setter Property="GridLinesVisibility" Value="Horizontal" />
+        <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
+        <Setter Property="SelectionUnit" Value="FullRow"/>
+        <Setter Property="IsTabStop" Value="False"/>
+    </Style>
+
+
+</ResourceDictionary>

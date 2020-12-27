@@ -1,0 +1,76 @@
+﻿<UserControl x:Class="StockManagementSystem.UI.Views.CompanyDebtView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:local="clr-namespace:StockManagementSystem.UI.Views"
+             xmlns:l="clr-namespace:StockManagementSystem.UI.Converters"
+             xmlns:ui="http://schemas.modernwpf.com/2019"
+             mc:Ignorable="d" Style="{StaticResource BaseUserControlStyle}"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <l:AmountToCurrencyConverter x:Key="AmountConverter" />
+        <l:DateTimeToShortDateConverter x:Key="DateConverter" />
+        <l:PaymentTypeToStringConverter x:Key="TypeConverter" />
+        <l:AttachmentToBooleanConverter x:Key="AttachmentConverter" />
+    </UserControl.Resources>
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="0 5 0 15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="auto" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto" />
+                <RowDefinition Height="auto" />
+            </Grid.RowDefinitions>
+            <Border Grid.Row="0" Grid.ColumnSpan="2" Style="{StaticResource 5MarginBottomBorderBottomStyle}">
+                <StackPanel Style="{StaticResource UserControlTitleStyle}">
+                    <Button Margin="0 0 5 0" x:Name="ShowCompanies">
+                        <ui:SymbolIcon Symbol="Back" Width="12" Height="12" Margin="2"/>
+                    </Button>
+                        <ui:SymbolIcon Symbol="Globe"/>
+                        <TextBlock Style="{StaticResource UserControlTitleTextBlockStyle}" Cursor="Hand" x:Name="blockCompanyName" PreviewMouseLeftButtonDown="OpenCompanyWindow">Firma İsmi</TextBlock>
+                </StackPanel>
+            </Border>
+            <StackPanel Grid.Column="0" Grid.Row="1">
+                <TextBlock Margin="0 5 0 0" Foreground="DimGray" x:Name="blockTotal">Toplam Ödenen : 2,593.00 TL / 5,503.00 TL</TextBlock>
+                <TextBlock Margin="10 0" FontSize="12" Foreground="DarkGray" x:Name="blockCurrentMonth">Mart : 2,593.00 TL / 5,503.00 TL</TextBlock>
+                <TextBlock Margin="10 0" FontSize="12" Foreground="DarkGray" x:Name="blockNextMonth">Nisan : 2,593.00 TL / 5,503.00 TL</TextBlock>
+            </StackPanel>
+            <Button Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Padding="25 8" FontWeight="DemiBold" Click="NewCompanyPayment">Ekle</Button>
+        </Grid>
+
+        <DataGrid x:Name="dataGrid" Grid.Row="1" Style="{StaticResource BaseDataGridStyle}"
+                  ItemsSource="{Binding Path=CompanyDTO.CompanyPayments}">
+            <DataGrid.RowStyle>
+                <Style TargetType="DataGridRow">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding Type}" Value="0">
+                            <Setter Property="Foreground" Value="Red"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding Type}" Value="1">
+                            <Setter Property="Foreground" Value="Green"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Açıklama" Binding="{Binding Note}" Width="*" MinWidth="100"/>
+                <DataGridTextColumn Header="Tutar" Binding="{Binding Amount, Converter={StaticResource AmountConverter}}" Width="SizeToCells" MinWidth="75"/>
+                <DataGridTextColumn Header="Tür" Binding="{Binding Type, Converter={StaticResource TypeConverter}}" Width="SizeToCells" MinWidth="75"/>
+                <DataGridTextColumn Header="Tarih" Binding="{Binding TransactionDate, Converter={StaticResource DateConverter}}" Width="SizeToCells" MinWidth="75" />
+                <DataGridCheckBoxColumn Header="Ek" Binding="{Binding Attachment, Converter={StaticResource AttachmentConverter}}" CanUserResize="False" CanUserReorder="False" MinWidth="35"/>
+            </DataGrid.Columns>
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Ek'i Göster" Click="ShowAttachment" />
+                </ContextMenu>
+            </DataGrid.ContextMenu>
+        </DataGrid>
+    </Grid>
+</UserControl>

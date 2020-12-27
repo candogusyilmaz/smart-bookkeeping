@@ -1,0 +1,356 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{21319E42-263A-4542-9A7E-FE06A87F0504}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>StockManagementSystem.UI</RootNamespace>
+    <AssemblyName>StockManagementSystem</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="netstandard" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Converters\AmountToCurrencyConverter.cs" />
+    <Compile Include="Converters\AttachmentToBooleanConverter.cs" />
+    <Compile Include="Converters\ClientPaymentTypeToStringConverter.cs" />
+    <Compile Include="Converters\DateTimeToShortDateConverter.cs" />
+    <Compile Include="Converters\IncomeStatusToTextConverter.cs" />
+    <Compile Include="Converters\NumberBoxNullValueConverter.cs" />
+    <Compile Include="Converters\PaymentTypeToStringConverter.cs" />
+    <Compile Include="Extensions\Extensions.cs" />
+    <Compile Include="DropShadowWindow.xaml.cs">
+      <DependentUpon>DropShadowWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\ImageHelpers.cs" />
+    <Compile Include="Helpers\PaymentTypeHelper.cs" />
+    <Compile Include="ViewModels\BaseViewModel.cs" />
+    <Compile Include="ViewModels\ClientPaymentsArchiveViewModel.cs" />
+    <Compile Include="ViewModels\ClientPaymentsViewModel.cs" />
+    <Compile Include="ViewModels\ClientSalesViewModel.cs" />
+    <Compile Include="ViewModels\CompanyDTO.cs" />
+    <Compile Include="ViewModels\SaleDetailsViewModel.cs" />
+    <Compile Include="ViewModels\SaleDTO.cs" />
+    <Compile Include="ViewModels\SalesListViewModel.cs" />
+    <Compile Include="ViewModels\SaleViewViewModel.cs" />
+    <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
+    <Compile Include="Views\ClientPaymentsArchive.xaml.cs">
+      <DependentUpon>ClientPaymentsArchive.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Client\ClientSalesView.xaml.cs">
+      <DependentUpon>ClientSalesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Client\ClientPaymentsView.xaml.cs">
+      <DependentUpon>ClientPaymentsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Client\ClientsListView.xaml.cs">
+      <DependentUpon>ClientsListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Client\ClientsView.xaml.cs">
+      <DependentUpon>ClientsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Company\CompaniesListView.xaml.cs">
+      <DependentUpon>CompaniesListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Company\CompanyDebtView.xaml.cs">
+      <DependentUpon>CompanyDebtView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Company\CompaniesView.xaml.cs">
+      <DependentUpon>CompaniesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExpensesView.xaml.cs">
+      <DependentUpon>ExpensesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\IncomesView.xaml.cs">
+      <DependentUpon>IncomesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ProductsView.xaml.cs">
+      <DependentUpon>ProductsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sales\SaleDetailsView.xaml.cs">
+      <DependentUpon>SaleDetailsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sales\SalesListView.xaml.cs">
+      <DependentUpon>SalesListView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Sales\SalesView.xaml.cs">
+      <DependentUpon>SalesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SaleView.xaml.cs">
+      <DependentUpon>SaleView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ClientPaymentWindow.xaml.cs">
+      <DependentUpon>ClientPaymentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ClientWindow.xaml.cs">
+      <DependentUpon>ClientWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CompanyPaymentWindow.xaml.cs">
+      <DependentUpon>CompanyPaymentWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\CompanyWindow.xaml.cs">
+      <DependentUpon>CompanyWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ExpenseWindow.xaml.cs">
+      <DependentUpon>ExpenseWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\IncomeWindow.xaml.cs">
+      <DependentUpon>IncomeWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ProductWindow.xaml.cs">
+      <DependentUpon>ProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Page Include="DropShadowWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Properties\DesignTimeResources.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Buttons.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Colors.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\DataGridStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Fonts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\Texts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Styles\WindowStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ClientPaymentsArchive.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Client\ClientSalesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Client\ClientPaymentsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Client\ClientsListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Client\ClientsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Company\CompaniesListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Company\CompanyDebtView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Company\CompaniesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ExpensesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\IncomesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProductsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Sales\SaleDetailsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Sales\SalesListView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Sales\SalesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SaleView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ClientPaymentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ClientWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CompanyPaymentWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\CompanyWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ExpenseWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\IncomeWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="AppDb.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Fonts\OpenSans-Bold.ttf" />
+    <Resource Include="Fonts\OpenSans-BoldItalic.ttf" />
+    <Resource Include="Fonts\OpenSans-ExtraBold.ttf" />
+    <Resource Include="Fonts\OpenSans-ExtraBoldItalic.ttf" />
+    <Resource Include="Fonts\OpenSans-Italic.ttf" />
+    <Resource Include="Fonts\OpenSans-Light.ttf" />
+    <Resource Include="Fonts\OpenSans-LightItalic.ttf" />
+    <Resource Include="Fonts\OpenSans-Regular.ttf" />
+    <Resource Include="Fonts\OpenSans-SemiBold.ttf" />
+    <Resource Include="Fonts\OpenSans-SemiBoldItalic.ttf" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\StockManagementSystem.Library\StockManagementSystem.Library.csproj">
+      <Project>{7a9f1792-9b59-4d04-9a2a-70e2c68753f8}</Project>
+      <Name>StockManagementSystem.Library</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Windows.SDK.Contracts">
+      <Version>10.0.18362.2005</Version>
+    </PackageReference>
+    <PackageReference Include="ModernWpfUI">
+      <Version>0.9.2</Version>
+    </PackageReference>
+    <PackageReference Include="PhotoSauce.MagicScaler">
+      <Version>0.11.2</Version>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody">
+      <Version>3.3.1</Version>
+    </PackageReference>
+    <PackageReference Include="Stub.System.Data.SQLite.Core.NetFramework">
+      <Version>1.0.113.3</Version>
+    </PackageReference>
+    <PackageReference Include="System.Data.SQLite.Core">
+      <Version>1.0.113.6</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.WindowsRuntime">
+      <Version>4.6.0</Version>
+    </PackageReference>
+    <PackageReference Include="System.Runtime.WindowsRuntime.UI.Xaml">
+      <Version>4.6.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

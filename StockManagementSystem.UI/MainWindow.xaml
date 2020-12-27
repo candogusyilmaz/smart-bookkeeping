@@ -1,0 +1,53 @@
+﻿<Window x:Class="StockManagementSystem.UI.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:StockManagementSystem.UI"
+        xmlns:local1="clr-namespace:StockManagementSystem.UI.Views"
+        xmlns:ui="http://schemas.modernwpf.com/2019"
+        mc:Ignorable="d"
+        ui:ThemeManager.IsThemeAware="True"
+        ui:WindowHelper.UseModernWindowStyle="True"
+        Title="MainWindow" MinHeight="600" MinWidth="900"
+        WindowStartupLocation="CenterScreen"
+        DataContext="{Binding RelativeSource={RelativeSource Self}}">
+    <Window.Resources>
+        <DataTemplate x:Key="NavLinkItemTemplate">
+            <Border Padding="20 0">
+                <StackPanel
+                Orientation="Horizontal"
+                Margin="2,0,0,0"
+                AutomationProperties.Name="{Binding Label, Mode=OneTime}">
+                    <ui:SymbolIcon VerticalAlignment="Center" Symbol="{Binding Symbol, Mode=OneTime}" Foreground="{StaticResource MediumColorBrush}"/>
+                    <TextBlock
+                    Text="{Binding Label, Mode=OneTime}"
+                    FontFamily="{StaticResource OpenSansSemiBold}"
+                        Foreground="{StaticResource VeryLightColorBrush}"
+                        FontSize="18"
+                    Margin="16,0,0,0"
+                    VerticalAlignment="Center" />
+                </StackPanel>
+            </Border>
+        </DataTemplate>
+    </Window.Resources>
+    <DockPanel Background="{StaticResource DarkColorBrush}">
+        <ui:ListView Width="280" DockPanel.Dock="Left"
+                Padding="0 20"
+                x:Name="NavLinksList"
+                Background="{StaticResource DarkColorBrush}"
+                IsSelectionEnabled="True"
+                VerticalAlignment="Stretch"
+                ItemClick="NavLinksList_ItemClick"
+                IsItemClickEnabled="True"
+                ItemsSource="{Binding NavLinks}"
+                ItemTemplate="{StaticResource NavLinkItemTemplate}" BorderBrush="{StaticResource VeryDarkColorBrush}" BorderThickness="0 0 1 0">
+        </ui:ListView>
+        <Border Margin="8">
+            <ContentControl x:Name="contentControl" />
+            <Border.Effect>
+                <DropShadowEffect  ShadowDepth="0"/>
+            </Border.Effect>
+        </Border>
+    </DockPanel>
+</Window>

@@ -1,0 +1,24 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:StockManagementSystem.UI">
+
+    <FontFamily x:Key="OpenSansLight">pack://application:,,,/Fonts/#Open Sans Light</FontFamily>
+    <FontFamily x:Key="OpenSansRegular">pack://application:,,,/Fonts/#Open Sans Regular</FontFamily>
+    <FontFamily x:Key="OpenSansSemiBold">pack://application:,,,/Fonts/#Open Sans SemiBold</FontFamily>
+
+    <Style TargetType="{x:Type Control}">
+        <Setter Property="FontFamily" Value="{StaticResource OpenSansRegular}" />
+    </Style>
+
+    <Style TargetType="{x:Type Button}" BasedOn="{StaticResource DefaultButtonStyle}">
+        <Setter Property="FontFamily" Value="{StaticResource OpenSansSemiBold}" />
+    </Style>
+
+    <Style TargetType="{x:Type TextBlock}" BasedOn="{StaticResource BaseTextBlockStyle}">
+        <Setter Property="FontFamily" Value="{StaticResource OpenSansLight}" />
+    </Style>
+
+    <Style TargetType="{x:Type DataGridColumnHeader}" BasedOn="{StaticResource DefaultDataGridColumnHeaderStyle}">
+        <Setter Property="FontFamily" Value="{StaticResource OpenSansSemiBold}" />
+    </Style>
+</ResourceDictionary>

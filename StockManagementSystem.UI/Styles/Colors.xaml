@@ -1,0 +1,15 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:local="clr-namespace:StockManagementSystem.UI">
+    <Color x:Key="VeryDarkColor">#0b0c10</Color>
+    <Color x:Key="DarkColor">#1f2833</Color>
+    <Color x:Key="MediumColor">#45a29e</Color>
+    <Color x:Key="LightColor">#66fcf1</Color>
+    <Color x:Key="VeryLightColor">#e8e8e8</Color>
+
+    <SolidColorBrush x:Key="VeryDarkColorBrush" Color="{StaticResource VeryDarkColor}" />
+    <SolidColorBrush x:Key="DarkColorBrush" Color="{StaticResource DarkColor}" />
+    <SolidColorBrush x:Key="MediumColorBrush" Color="{StaticResource MediumColor}" />
+    <SolidColorBrush x:Key="LightColorBrush" Color="{StaticResource LightColor}" />
+    <SolidColorBrush x:Key="VeryLightColorBrush" Color="{StaticResource VeryLightColor}" />
+</ResourceDictionary>
