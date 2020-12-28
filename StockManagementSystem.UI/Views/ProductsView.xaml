@@ -47,24 +47,12 @@
                   Style="{StaticResource BaseDataGridStyle}">
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Ürün Adı" Width="*"
-                                    MinWidth="100"
+                                    MinWidth="125"
                                     Binding="{Binding ProductName}" />
-                <DataGridTextColumn Header="Birim Satış Fiyatı" Width="SizeToHeader"
-                                    Binding="{Binding UnitSalePrice, Converter={StaticResource AmountConverter}}">
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell" BasedOn="{StaticResource DefaultDataGridCellStyle}">
-                            <Setter Property="ToolTip" Value="{Binding UnitSalePrice,Converter={StaticResource AmountConverter}}" />
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
-                <DataGridTextColumn Header="Birim Alış Fiyatı" Width="SizeToHeader"
-                                    Binding="{Binding UnitBuyPrice, Converter={StaticResource AmountConverter}}">
-                    <DataGridTextColumn.CellStyle>
-                        <Style TargetType="DataGridCell" BasedOn="{StaticResource DefaultDataGridCellStyle}">
-                            <Setter Property="ToolTip" Value="{Binding UnitBuyPrice, Converter={StaticResource AmountConverter}}" />
-                        </Style>
-                    </DataGridTextColumn.CellStyle>
-                </DataGridTextColumn>
+                <DataGridTextColumn Header="Birim Satış Fiyatı" Width="SizeToCells" MinWidth="125"
+                                    Binding="{Binding UnitSalePrice, Converter={StaticResource AmountConverter}}"/>
+                <DataGridTextColumn Header="Birim Alış Fiyatı" Width="SizeToCells" MinWidth="125"
+                                    Binding="{Binding UnitBuyPrice, Converter={StaticResource AmountConverter}}"/>
                 <DataGridTextColumn Header="Kalan Stok" Width="SizeToCells" MinWidth="90"
                                     Binding="{Binding Count}"/>
             </DataGrid.Columns>

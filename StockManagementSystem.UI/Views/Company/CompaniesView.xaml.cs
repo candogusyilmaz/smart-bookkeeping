@@ -35,7 +35,7 @@ namespace StockManagementSystem.UI.Views
             if (companiesListView.dataGrid.SelectedItem == null)
                 return;
 
-            companyDebtView = new CompanyDebtView((CompanyDTO)companiesListView.dataGrid.SelectedItem);
+            companyDebtView = new CompanyDebtView(((CompanyDTO)companiesListView.dataGrid.SelectedItem).Company);
             companyDebtView.ShowCompanies.Click += ShowCompanies_Click;
 
             content.Content = companyDebtView;

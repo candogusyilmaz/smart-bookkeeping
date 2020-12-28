@@ -97,9 +97,6 @@ namespace StockManagementSystem.UI.ViewModels
             foreach (var item in CommonService.GetAll<SaleModel>(DbTables.Sales))
                 Sales.Add(new SaleDTO(item));
 
-            DisplayDateStart = DateTime.Now;
-            DisplayDateEnd = DateTime.Now;
-
             if (Sales.Any())
             {
                 DisplayDateStart = Sales.OrderBy(s => s.Sale.TransactionDate).FirstOrDefault().Sale.TransactionDate;

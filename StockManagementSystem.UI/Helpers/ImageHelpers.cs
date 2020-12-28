@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace StockManagementSystem.UI
 {
@@ -17,6 +13,17 @@ namespace StockManagementSystem.UI
                 Image img = Image.FromFile(imagePath);
                 img.Save(ms, System.Drawing.Imaging.ImageFormat.Jpeg);
                 return ms.ToArray();
+            }
+        }
+
+        public static void SaveBitmap(this byte[] value, string filename)
+        {
+            if (!(filename.EndsWith(".jpg") || filename.EndsWith(".jpeg")))
+                filename += ".jpeg";
+
+            using (MemoryStream ms = new MemoryStream(value))
+            {
+                new Bitmap(ms).Save(filename, ImageFormat.Jpeg);
             }
         }
     }

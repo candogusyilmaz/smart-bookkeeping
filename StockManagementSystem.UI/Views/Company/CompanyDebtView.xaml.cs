@@ -1,9 +1,7 @@
-﻿using StockManagementSystem.UI.ViewModels;
+﻿using StockManagementSystem.Library;
 using StockManagementSystem.UI.Windows;
-using System;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input;
 
 namespace StockManagementSystem.UI.Views
 {
@@ -12,60 +10,65 @@ namespace StockManagementSystem.UI.Views
     /// </summary>
     public partial class CompanyDebtView : UserControl
     {
-        public CompanyDTO CompanyDTO { get; set; }
+        public CompanyDebtViewModel ViewModel { get; set; }
 
-        public CompanyDebtView(CompanyDTO model)
+        public CompanyDebtView(CompanyModel model)
         {
             InitializeComponent();
 
-            this.DataContext = this;
+            ViewModel = new CompanyDebtViewModel(model);
 
-            if (model == null)
-                return;
+            this.DataContext = ViewModel;
 
-            CompanyDTO = model;
-
-            blockCompanyName.Text = CompanyDTO.Company.CompanyName;
-            UpdateDebtInformation();
+            Reset();
         }
 
-        private void UpdateDebtInformation()
+        private void Reset()
         {
-            string totalDebt = $"Toplam Ödeme : {CompanyDTO.CompanyPaidAmount.ConvertToCurrencyString()} / {CompanyDTO.CompanyDebtAmount.ConvertToCurrencyString()}";
-
-            string currentMonthDebt = $"{DateTime.Now.GetMonthString()} {DateTime.Now.Year} : {CompanyDTO.CurrentMonthPaidAmount.ConvertToCurrencyString()} / {CompanyDTO.CurrentMonthDebtAmount.ConvertToCurrencyString()}";
-
-            var nextMonth = (DateTime.Now).AddMonths(1);
-            string nextMonthDebt = $"{(nextMonth).GetMonthString()} {nextMonth.Year} : {CompanyDTO.NextMonthPaidAmount.ConvertToCurrencyString()} / {CompanyDTO.NextMonthDebtAmount.ConvertToCurrencyString()}";
-
-            blockTotal.Text = totalDebt;
-            blockCurrentMonth.Text = currentMonthDebt;
-            blockNextMonth.Text = nextMonthDebt;
+            asbDescription.Text = "";
+            nbLow.Text = "";
+            nbHigh.Text = "";
+            dtLow.SelectedDate = ViewModel.DisplayDateStart;
+            dtHigh.SelectedDate = ViewModel.DisplayDateEnd;
         }
+
 
         private void NewCompanyPayment(object sender, RoutedEventArgs e)
         {
-            DropShadowWindow window = new DropShadowWindow(new CompanyPaymentWindow(CompanyDTO.Company));
+            DropShadowWindow window = new DropShadowWindow(new CompanyPaymentWindow(ViewModel.Company));
             window.ShowDialog();
 
             if (((CompanyPaymentWindow)window.NextWindow).ChangesSaved)
-                CompanyDTO.InsertLastRecord();
+                ViewModel.InsertLastRecord();
         }
 
-        private void ShowAttachment(object sender, RoutedEventArgs e)
+        private void SaveAttachment(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("yapım aşaması");
+            if (((CompanyPaymentModel)dataGrid.SelectedItem).Attachment == null) return;
+
+            Microsoft.Win32.SaveFileDialog ofd = new Microsoft.Win32.SaveFileDialog
+            {
+                Title = "Ek'i kaydedin",
+                Filter = "Image Files| *.jpg, *.jpeg"
+            };
+
+            bool? result = ofd.ShowDialog();
+
+
+            if (result != true)
+                return;
+
+            ((CompanyPaymentModel)dataGrid.SelectedItem).Attachment.SaveBitmap(ofd.FileName);
         }
 
-        private void OpenCompanyWindow(object sender, MouseButtonEventArgs e)
+        private void FindSymbolIcon_MouseLeftButtonDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            DropShadowWindow window = new DropShadowWindow(new CompanyWindow(CompanyDTO.Company));
-            window.ShowDialog();
+            ViewModel.IsSearchPaneOpen = !ViewModel.IsSearchPaneOpen;
+        }
 
-            if (((CompanyWindow)window.NextWindow).ChangesSaved == false) return;
-
-            CompanyDTO.Company = ((CompanyWindow)window.NextWindow).Company;
-            blockCompanyName.Text = CompanyDTO.Company.CompanyName;
+        private void Reset(object sender, RoutedEventArgs e)
+        {
+            Reset();
         }
     }
 }

@@ -13,13 +13,19 @@
         <l:DateTimeToShortDateConverter x:Key="DateConverter" />
         <l:PaymentTypeToStringConverter x:Key="TypeConverter" />
         <l:AttachmentToBooleanConverter x:Key="AttachmentConverter" />
+        <l:NumberBoxNullValueConverter x:Key="NumberBoxConverter" />
     </UserControl.Resources>
     <Grid Margin="5">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="0 5 0 15">
+
+        <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0 5 0 15">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="auto" />
@@ -33,20 +39,89 @@
                     <Button Margin="0 0 5 0" x:Name="ShowCompanies">
                         <ui:SymbolIcon Symbol="Back" Width="12" Height="12" Margin="2"/>
                     </Button>
-                        <ui:SymbolIcon Symbol="Globe"/>
-                        <TextBlock Style="{StaticResource UserControlTitleTextBlockStyle}" Cursor="Hand" x:Name="blockCompanyName" PreviewMouseLeftButtonDown="OpenCompanyWindow">Firma İsmi</TextBlock>
+                    <ui:SymbolIcon Symbol="Globe"/>
+                    <TextBlock Style="{StaticResource UserControlTitleTextBlockStyle}"
+                               Text="{Binding Company.CompanyName, Mode=OneTime,FallbackValue='Lorem ipsum'}"/>
                 </StackPanel>
             </Border>
             <StackPanel Grid.Column="0" Grid.Row="1">
-                <TextBlock Margin="0 5 0 0" Foreground="DimGray" x:Name="blockTotal">Toplam Ödenen : 2,593.00 TL / 5,503.00 TL</TextBlock>
-                <TextBlock Margin="10 0" FontSize="12" Foreground="DarkGray" x:Name="blockCurrentMonth">Mart : 2,593.00 TL / 5,503.00 TL</TextBlock>
-                <TextBlock Margin="10 0" FontSize="12" Foreground="DarkGray" x:Name="blockNextMonth">Nisan : 2,593.00 TL / 5,503.00 TL</TextBlock>
+                <TextBlock Margin="0 5 0 0" Foreground="DimGray">
+                        <Run Text="Toplam Ödenen :" />
+                        <Run Text="{Binding PaidAmount, Mode=OneWay, Converter={StaticResource AmountConverter}, FallbackValue='1,391.00 $'}"/>
+                        <Run Text= "/" />
+                        <Run Text="{Binding TotalAmount, Mode=OneWay, Converter={StaticResource AmountConverter}, FallbackValue='2,391.00 $'}"/>
+                </TextBlock>
+                <TextBlock Margin="10 0" FontSize="12" Foreground="DarkGray">
+                    <Run Text="{Binding MonthString, Mode=OneWay, FallbackValue='Nisan'}" />
+                    <Run Text= ":" />
+                    <Run Text="{Binding MonthPaidAmount, Mode=OneWay, Converter={StaticResource AmountConverter}, FallbackValue='1,191.00 $'}"/>
+                    <Run Text= "/" />
+                    <Run Text="{Binding MonthTotalAmount, Mode=OneWay, Converter={StaticResource AmountConverter}, FallbackValue='1,391.00 $'}"/>
+                </TextBlock>
+                <TextBlock Margin="10 0" FontSize="12" Foreground="DarkGray">
+                    <Run Text="{Binding NextMonthString, Mode=OneWay, FallbackValue='Mayıs'}" />
+                    <Run Text= ":" />
+                    <Run Text="{Binding NextMonthPaidAmount, Mode=OneWay, Converter={StaticResource AmountConverter}, FallbackValue='1,191.00 $'}"/>
+                    <Run Text= "/" />
+                    <Run Text="{Binding NextMonthTotalAmount, Mode=OneWay, Converter={StaticResource AmountConverter}, FallbackValue='1,391.00 $'}"/>
+                </TextBlock>
             </StackPanel>
-            <Button Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Padding="25 8" FontWeight="DemiBold" Click="NewCompanyPayment">Ekle</Button>
+            <Button Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Padding="25 8" Click="NewCompanyPayment">Ekle</Button>
         </Grid>
 
-        <DataGrid x:Name="dataGrid" Grid.Row="1" Style="{StaticResource BaseDataGridStyle}"
-                  ItemsSource="{Binding Path=CompanyDTO.CompanyPayments}">
+        <ui:SplitView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" Panel.ZIndex="1"
+                      PaneBackground="{StaticResource DarkColorBrush}" BorderBrush="{StaticResource MediumColorBrush}" BorderThickness="1"
+                      IsPaneOpen="{Binding IsSearchPaneOpen, Mode=OneWay,FallbackValue=true}"
+                      OpenPaneLength="280"
+                      CompactPaneLength="36"
+                      DisplayMode="CompactInline"
+                      IsTabStop="False">
+            <ui:SplitView.Pane>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="36" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <ui:SymbolIcon Margin="0 6 0 3" Symbol="Find"  Foreground="{StaticResource MediumColorBrush}" MouseLeftButtonDown="FindSymbolIcon_MouseLeftButtonDown"/>
+                    <Border Grid.Column="1" BorderBrush="{StaticResource MediumColorBrush}" BorderThickness="1" Padding="10" Background="White">
+                        <StackPanel >
+                            <StackPanel Margin="0 0 0 5">
+                                <TextBlock Text="Açıklama" Margin="5 0 0 2"/>
+                                <ui:AutoSuggestBox x:Name="asbDescription" Margin="0 0 5 0"
+                                   Text="{Binding DescriptionFilter, Mode=OneWayToSource}"/>
+                            </StackPanel>
+                            <StackPanel Margin="0 0 0 5">
+                                <TextBlock Text="Tutar" Margin="5 0 0 2"/>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                    <ui:NumberBox x:Name="nbLow"  PlaceholderText="min"  Margin="0 0 5 5" InputScope="CurrencyAmount" Width="100"
+                                  Value="{Binding PriceLowFilter, Mode=OneWayToSource, Converter={StaticResource NumberBoxConverter}}"/>
+                                    <ui:NumberBox x:Name="nbHigh" PlaceholderText="max"  Margin="0 0 5 0" InputScope="CurrencyAmount" Width="100"
+                                  Value="{Binding PriceHighFilter, Mode=OneWayToSource, Converter={StaticResource NumberBoxConverter}}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <StackPanel Margin="0 0 0 5">
+                                <TextBlock Text="Tarih" Margin="5 0 0 2"/>
+                                <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                    <DatePicker x:Name="dtLow" Margin="0 0 5 5"
+                                SelectedDate="{Binding DateLowFilter, Mode=OneWayToSource}"
+                                DisplayDateStart="{Binding DisplayDateStart, Mode=OneTime}"
+                                DisplayDateEnd="{Binding DisplayDateEnd, Mode=OneTime}"/>
+                                    <DatePicker x:Name="dtHigh" Margin="0 0 5 0"
+                                SelectedDate="{Binding DateHighFilter, Mode=OneWayToSource}"
+                                DisplayDateStart="{Binding DisplayDateStart, Mode=OneTime}"
+                                DisplayDateEnd="{Binding DisplayDateEnd, Mode=OneTime}"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Button VerticalAlignment="Bottom" Margin="0 0 0 5" Click="Reset">Filtreleri Sıfırla</Button>
+                        </StackPanel>
+                    </Border>
+                </Grid>
+            </ui:SplitView.Pane>
+        </ui:SplitView>
+
+        <DataGrid x:Name="dataGrid" Grid.Row="1" Grid.Column="1" Style="{StaticResource BaseDataGridStyle}" Margin="40 0 0 0"
+                  ItemsSource="{Binding FilteredCompanyPayments, Mode=OneWay}">
             <DataGrid.RowStyle>
                 <Style TargetType="DataGridRow">
                     <Style.Triggers>
@@ -62,13 +137,13 @@
             <DataGrid.Columns>
                 <DataGridTextColumn Header="Açıklama" Binding="{Binding Note}" Width="*" MinWidth="100"/>
                 <DataGridTextColumn Header="Tutar" Binding="{Binding Amount, Converter={StaticResource AmountConverter}}" Width="SizeToCells" MinWidth="75"/>
-                <DataGridTextColumn Header="Tür" Binding="{Binding Type, Converter={StaticResource TypeConverter}}" Width="SizeToCells" MinWidth="75"/>
-                <DataGridTextColumn Header="Tarih" Binding="{Binding TransactionDate, Converter={StaticResource DateConverter}}" Width="SizeToCells" MinWidth="75" />
-                <DataGridCheckBoxColumn Header="Ek" Binding="{Binding Attachment, Converter={StaticResource AttachmentConverter}}" CanUserResize="False" CanUserReorder="False" MinWidth="35"/>
+                <DataGridTextColumn Header="Tür" Binding="{Binding Type, Converter={StaticResource TypeConverter}}" Width="75"/>
+                <DataGridTextColumn Header="Tarih" Binding="{Binding TransactionDate, Converter={StaticResource DateConverter}}" Width="90"/>
+                <DataGridCheckBoxColumn Header="Ek" Binding="{Binding Attachment, Converter={StaticResource AttachmentConverter}}" CanUserReorder="False" Width="45"/>
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Ek'i Göster" Click="ShowAttachment" />
+                    <MenuItem Header="Ek'i Kaydet" Click="SaveAttachment" />
                 </ContextMenu>
             </DataGrid.ContextMenu>
         </DataGrid>

@@ -75,6 +75,7 @@
     <Compile Include="ViewModels\ClientPaymentsArchiveViewModel.cs" />
     <Compile Include="ViewModels\ClientPaymentsViewModel.cs" />
     <Compile Include="ViewModels\ClientSalesViewModel.cs" />
+    <Compile Include="ViewModels\CompanyDebtViewModel.cs" />
     <Compile Include="ViewModels\CompanyDTO.cs" />
     <Compile Include="ViewModels\SaleDetailsViewModel.cs" />
     <Compile Include="ViewModels\SaleDTO.cs" />
