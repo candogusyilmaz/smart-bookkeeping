@@ -9,7 +9,7 @@
             <ResourceDictionary.MergedDictionaries>
                 <ui:ThemeResources />
                 <ui:XamlControlsResources />
-                <ui:ThemeResources RequestedTheme="Light" AccentColor="DarkSlateGray" />
+                <ui:ThemeResources RequestedTheme="Light" AccentColor="DarkOrange" />
 
                 <ResourceDictionary Source="Styles\Colors.xaml" />
                 <ResourceDictionary Source="Styles\Fonts.xaml" />

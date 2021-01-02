@@ -1,6 +1,7 @@
 ﻿using ModernWpf.Controls;
 using StockManagementSystem.UI.Views;
-using System.Collections.ObjectModel;
+using StockManagementSystem.UI.Windows;
+using System.Collections.Generic;
 using System.Windows;
 
 namespace StockManagementSystem.UI
@@ -10,67 +11,46 @@ namespace StockManagementSystem.UI
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
 
-            //contentControl.Content = new SaleView();
+            this.Loaded += MainWindow_Loaded;
         }
 
-        private readonly ObservableCollection<NavLink> _navLinks = new ObservableCollection<NavLink>()
+        private void MainWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            new NavLink() { Label = "Yeni Satış", Symbol = Symbol.Edit },
-            new NavLink() { Label = "Ürün", Symbol = Symbol.AllApps },
-            new NavLink() { Label = "Müşteri", Symbol = Symbol.People },
-            new NavLink() { Label = "Firma", Symbol = Symbol.Globe },
-            new NavLink() { Label = "Gelir", Symbol = Symbol.Add },
-            new NavLink() { Label = "Gider", Symbol = Symbol.Remove },
-            new NavLink() { Label = "Satış Arşivi", Symbol = Symbol.List },
-            new NavLink() { Label = "Ödeme Arşivi", Symbol = Symbol.BrowsePhotos }
-        };
-
-        public ObservableCollection<NavLink> NavLinks
-        {
-            get { return _navLinks; }
-        }
-
-        private void NavLinksList_ItemClick(object sender, ItemClickEventArgs e)
-        {
-            var name = (e.ClickedItem as NavLink).Label;
-
-            switch (name)
+            var navItems = new List<NavigationViewItem>()
             {
-                case "Yeni Satış":
-                    contentControl.Content = new SaleView();
-                    break;
-                case "Ürün":
-                    contentControl.Content = new ProductsView();
-                    break;
-                case "Müşteri":
-                    contentControl.Content = new ClientsView();
-                    break;
-                case "Firma":
-                    contentControl.Content = new CompaniesView();
-                    break;
-                case "Gelir":
-                    contentControl.Content = new IncomesView();
-                    break;
-                case "Gider":
-                    contentControl.Content = new ExpensesView();
-                    break;
-                case "Satış Arşivi":
-                    contentControl.Content = new SalesView();
-                    break;
-                case "Ödeme Arşivi":
-                    contentControl.Content = new ClientPaymentsArchive();
-                    break;
+                new NavigationViewItem() { Content = "Anasayfa", Tag = new Homepage(), Icon = new SymbolIcon(Symbol.Home), },
+                new NavigationViewItem() { Content = "Yeni Satış", Tag = new SaleView(), Icon = new SymbolIcon(Symbol.Edit) },
+                new NavigationViewItem() { Content = "Ürünler", Tag = new ProductsView(), Icon = new SymbolIcon(Symbol.AllApps) },
+                new NavigationViewItem() { Content = "Müşteriler", Tag = new ClientsView(), Icon = new SymbolIcon(Symbol.People) },
+                new NavigationViewItem() { Content = "Firmalar", Tag = new CompaniesView(), Icon = new SymbolIcon(Symbol.Globe) },
+                new NavigationViewItem() { Content = "Gelirler", Tag = new IncomesView(), Icon = new SymbolIcon(Symbol.Add) },
+                new NavigationViewItem() { Content = "Giderler", Tag = new ExpensesView(), Icon = new SymbolIcon(Symbol.Remove) },
+                new NavigationViewItem() { Content = "Satış Arşivi", Tag = new SalesView(), Icon = new SymbolIcon(Symbol.List) },
+                new NavigationViewItem() { Content = "Ödeme Arşivi", Tag = new ClientPaymentsArchive(), Icon = new SymbolIcon(Symbol.BrowsePhotos) },
+            };
+
+            NavigationView.MenuItemsSource = navItems;
+
+            NavigationView.SelectedItem = navItems[0];
+        }
+        private void NavigationViewSelectionChanged(NavigationView sender, NavigationViewSelectionChangedEventArgs args)
+        {
+            if (args.IsSettingsSelected)
+            {
+                var window = new DropShadowWindow(new SettingsWindow());
+                window.ShowDialog();
+            }
+            else
+            {
+                var item = sender.SelectedItem as NavigationViewItem;
+
+                contentFrame.Navigate(item.Tag.GetType());
             }
         }
-    }
-
-    public class NavLink
-    {
-        public string Label { get; set; }
-        public Symbol Symbol { get; set; }
     }
 }

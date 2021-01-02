@@ -3,51 +3,34 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:StockManagementSystem.UI"
-        xmlns:local1="clr-namespace:StockManagementSystem.UI.Views"
         xmlns:ui="http://schemas.modernwpf.com/2019"
         mc:Ignorable="d"
         ui:ThemeManager.IsThemeAware="True"
         ui:WindowHelper.UseModernWindowStyle="True"
-        Title="MainWindow" MinHeight="600" MinWidth="900"
-        WindowStartupLocation="CenterScreen"
-        DataContext="{Binding RelativeSource={RelativeSource Self}}">
-    <Window.Resources>
-        <DataTemplate x:Key="NavLinkItemTemplate">
-            <Border Padding="20 0">
-                <StackPanel
-                Orientation="Horizontal"
-                Margin="2,0,0,0"
-                AutomationProperties.Name="{Binding Label, Mode=OneTime}">
-                    <ui:SymbolIcon VerticalAlignment="Center" Symbol="{Binding Symbol, Mode=OneTime}" Foreground="{StaticResource MediumColorBrush}"/>
-                    <TextBlock
-                    Text="{Binding Label, Mode=OneTime}"
-                    FontFamily="{StaticResource OpenSansSemiBold}"
-                        Foreground="{StaticResource VeryLightColorBrush}"
-                        FontSize="18"
-                    Margin="16,0,0,0"
-                    VerticalAlignment="Center" />
-                </StackPanel>
-            </Border>
-        </DataTemplate>
-    </Window.Resources>
-    <DockPanel Background="{StaticResource DarkColorBrush}">
-        <ui:ListView Width="280" DockPanel.Dock="Left"
-                Padding="0 20"
-                x:Name="NavLinksList"
-                Background="{StaticResource DarkColorBrush}"
-                IsSelectionEnabled="True"
-                VerticalAlignment="Stretch"
-                ItemClick="NavLinksList_ItemClick"
-                IsItemClickEnabled="True"
-                ItemsSource="{Binding NavLinks}"
-                ItemTemplate="{StaticResource NavLinkItemTemplate}" BorderBrush="{StaticResource VeryDarkColorBrush}" BorderThickness="0 0 1 0">
-        </ui:ListView>
-        <Border Margin="8">
-            <ContentControl x:Name="contentControl" />
-            <Border.Effect>
-                <DropShadowEffect  ShadowDepth="0"/>
-            </Border.Effect>
-        </Border>
-    </DockPanel>
+        Title="Smart Bookkeeping" MinHeight="600" MinWidth="900"
+        WindowStartupLocation="CenterScreen">
+    <Grid>
+        <ui:NavigationView x:Name="NavigationView" ui:ThemeManager.RequestedTheme="Dark"
+                           IsPaneOpen="True"
+                           OpenPaneLength="240" IsPaneToggleButtonVisible="False"
+                           PaneDisplayMode="Left" IsTabStop="False"
+                           SelectionChanged="NavigationViewSelectionChanged" IsBackButtonVisible="Collapsed"
+                           IsSettingsVisible="True"
+                           >
+            <ui:Frame Margin="0,0,0,0" x:Name="contentFrame" ui:ThemeManager.RequestedTheme="Light" />
+            <ui:NavigationView.PaneHeader>
+                <Border BorderThickness="0 0 0 2" Margin="15 15" Padding="10" Width="210">
+                    <TextBlock TextAlignment="Center" Text="KLAS TÜL PERDE" Foreground="#fff"
+                           FontSize="24" FontFamily="{StaticResource OpenSansSemiBold}"/>
+                    <Border.BorderBrush>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                            <GradientStop Color="#1f1f11" Offset="0" />
+                            <GradientStop Color="DarkOrange" Offset="0.5" />
+                            <GradientStop Color="#1f1f11" Offset="1" />
+                        </LinearGradientBrush>
+                    </Border.BorderBrush>
+                </Border>
+            </ui:NavigationView.PaneHeader>
+        </ui:NavigationView>
+    </Grid>
 </Window>

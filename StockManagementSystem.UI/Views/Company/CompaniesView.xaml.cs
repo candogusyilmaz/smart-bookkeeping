@@ -1,4 +1,4 @@
-﻿using StockManagementSystem.UI.ViewModels;
+﻿using StockManagementSystem.Library;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -35,7 +35,7 @@ namespace StockManagementSystem.UI.Views
             if (companiesListView.dataGrid.SelectedItem == null)
                 return;
 
-            companyDebtView = new CompanyDebtView(((CompanyDTO)companiesListView.dataGrid.SelectedItem).Company);
+            companyDebtView = new CompanyDebtView(((CompanyModel)companiesListView.dataGrid.SelectedItem));
             companyDebtView.ShowCompanies.Click += ShowCompanies_Click;
 
             content.Content = companyDebtView;

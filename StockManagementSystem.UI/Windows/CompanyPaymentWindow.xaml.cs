@@ -1,5 +1,4 @@
 ﻿using StockManagementSystem.Library;
-using System;
 using System.Windows;
 
 namespace StockManagementSystem.UI.Windows
@@ -17,8 +16,10 @@ namespace StockManagementSystem.UI.Windows
         {
             InitializeComponent();
 
-            CompanyPayment = new CompanyPaymentModel();
-            CompanyPayment.CompanyId = model.Id;
+            CompanyPayment = new CompanyPaymentModel
+            {
+                CompanyId = model.Id
+            };
         }
 
         private byte[] attachment;
@@ -46,7 +47,7 @@ namespace StockManagementSystem.UI.Windows
             try
             {
                 CompanyPayment.Attachment = attachment;
-                CompanyPayment.Amount = Convert.ToDecimal(txtAmount.Text);
+                CompanyPayment.Amount = (decimal)txtAmount.Value;
                 CompanyPayment.Note = txtNote.Text;
                 CompanyPayment.Type = cmbType.SelectedIndex;
                 CompanyPayment.TransactionDate = dtDate.SelectedDate.GetValueOrDefault();

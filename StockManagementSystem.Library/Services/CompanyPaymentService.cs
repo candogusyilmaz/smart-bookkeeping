@@ -4,14 +4,21 @@ namespace StockManagementSystem.Library
 {
     public static class CompanyPaymentService
     {
-        public static decimal GetCompanyDebt(CompanyModel model)
+        public static decimal GetCompanyTotalDebt(CompanyModel model)
         {
-            string sql = "select sum(Amount) from CompanyPayments where CompanyId=" + model.Id;
+            string sql = $"select sum(Amount) from CompanyPayments where CompanyId={model.Id} and Type=0";
 
             return SqliteDataAccess.LoadSingleData<decimal>(sql, null);
         }
 
-        public static List<CompanyPaymentModel> GetCompanyPaymentsByCompany(CompanyModel model)
+        public static decimal GetCompanyPaid(CompanyModel model)
+        {
+            string sql = $"select sum(Amount) from CompanyPayments where CompanyId={model.Id} and Type=1";
+
+            return SqliteDataAccess.LoadSingleData<decimal>(sql, null);
+        }
+
+        public static List<CompanyPaymentModel> GetCompanyPayments(CompanyModel model)
         {
             string sql = "select * from CompanyPayments where CompanyId=" + model.Id;
 

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StockManagementSystem.Library
+﻿namespace StockManagementSystem.Library
 {
     public class CompanyModel
     {
@@ -13,5 +7,10 @@ namespace StockManagementSystem.Library
         public string Phone { get; set; }
         public string Address { get; set; }
         public string Note { get; set; }
+
+        public decimal Total => CompanyPaymentService.GetCompanyTotalDebt(this);
+        public decimal Paid => CompanyPaymentService.GetCompanyPaid(this);
+        public decimal Unpaid => Total - Paid;
+
     }
 }

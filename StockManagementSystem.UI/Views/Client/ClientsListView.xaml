@@ -58,7 +58,8 @@
             </DataGrid.Columns>
             <DataGrid.ContextMenu>
                 <ContextMenu>
-                    <MenuItem Header="Düzenle"/>
+                    <MenuItem Header="Düzenle" Click="EditClient"/>
+                    <MenuItem Header="Ek'i kaydet" Click="SaveAttachment"/>
                     <MenuItem Header="Alışverişlerini göster" x:Name="ShowClientSales"/>
                     <MenuItem Header="Ödemelerini göster" x:Name="ShowClientPayments"/>
                 </ContextMenu>

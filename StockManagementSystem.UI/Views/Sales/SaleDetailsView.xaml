@@ -68,11 +68,6 @@
                 <DataGridTextColumn Header="Tutar" Width="SizeToCells" MinWidth="100"
                                     Binding="{Binding Price, Converter={StaticResource AmountConverter}}" />
             </DataGrid.Columns>
-            <DataGrid.ContextMenu>
-                <ContextMenu>
-                    <MenuItem Header="Ayrıntılar" />
-                </ContextMenu>
-            </DataGrid.ContextMenu>
         </DataGrid>
         <Border Grid.Row="2" Style="{StaticResource 5MarginTopBorderTopStyle}">
             <StackPanel Style="{StaticResource BottomStackPanel}">

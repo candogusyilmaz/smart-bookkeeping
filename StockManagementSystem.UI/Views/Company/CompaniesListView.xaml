@@ -32,23 +32,21 @@
                 </StackPanel>
             </Border>
             <StackPanel Grid.Column="0" Grid.Row="1">
-                <TextBlock Foreground="DarkRed" x:Name="blockTotalDebt" Style="{StaticResource CaptionTextBlockStyle}"> Toplam Borç :
-                </TextBlock>
             </StackPanel>
             <Button Grid.Column="1" Grid.Row="1" VerticalAlignment="Bottom" Padding="20 8" Click="NewCompany"> Yeni
             </Button>
         </Grid>
 
         <DataGrid x:Name="dataGrid" Grid.Row="1" Style="{StaticResource BaseDataGridStyle}"
-                  ItemsSource="{Binding Path=CompanyViewList, Mode=TwoWay}">
+                  ItemsSource="{Binding Companies, Mode=OneWay}">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Firma Adı" Binding="{Binding Company.CompanyName}" Width="*" MinWidth="100"/>
+                <DataGridTextColumn Header="Firma Adı" Binding="{Binding CompanyName}" Width="*" MinWidth="100"/>
                 <DataGridTextColumn Header="Ödenen Borç" Foreground="Green" MinWidth="100"
-                                    Binding="{Binding CompanyPaidAmount, Converter={StaticResource AmountConverter}}"/>
+                                    Binding="{Binding Paid, Converter={StaticResource AmountConverter}}"/>
                 <DataGridTextColumn Header="Toplam Borç" MinWidth="100"
-                                    Binding="{Binding CompanyDebtAmount, Converter={StaticResource AmountConverter}}"/>
-                <DataGridTextColumn Header="Kalan Borç" MinWidth="100"
-                                    Binding="{Binding CompanyUnpaidAmount, Converter={StaticResource AmountConverter}}"/>
+                                    Binding="{Binding Total, Converter={StaticResource AmountConverter}}"/>
+                <DataGridTextColumn Header="Kalan Borç" Foreground="Red" MinWidth="100"
+                                    Binding="{Binding Unpaid, Converter={StaticResource AmountConverter}}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -7,7 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
 
-namespace StockManagementSystem.UI.Views
+namespace StockManagementSystem.UI
 {
     /// <summary>
     /// Interaction logic for ProductsView.xaml

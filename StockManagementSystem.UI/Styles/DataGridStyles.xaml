@@ -11,9 +11,7 @@
         <Setter Property="BorderBrush" Value="{StaticResource SystemControlBackgroundAccentRevealBorderBrush}"/>
         <Setter Property="BorderThickness" Value="0"/>
         <Setter Property="AutoGenerateColumns" Value="false"/>
-        <Setter Property="ColumnWidth" Value="auto" />
         <Setter Property="GridLinesVisibility" Value="Horizontal" />
-        <Setter Property="HorizontalScrollBarVisibility" Value="Visible" />
         <Setter Property="SelectionUnit" Value="FullRow"/>
         <Setter Property="IsTabStop" Value="False"/>
     </Style>

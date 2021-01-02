@@ -12,9 +12,6 @@ namespace StockManagementSystem.UI
 
         #region Filter Properties
 
-        public DateTime DisplayDateStart { get; set; }
-        public DateTime DisplayDateEnd { get; set; }
-
 
         private DateTime _dateHighFilter;
         public DateTime DateHighFilter
@@ -74,44 +71,37 @@ namespace StockManagementSystem.UI
         #endregion
 
 
-        private List<CompanyPaymentModel> CompanyPayments;
-
+        private readonly List<CompanyPaymentModel> CompanyPayments;
         public CompanyModel Company { get; set; }
-
         public BindingList<CompanyPaymentModel> FilteredCompanyPayments { get; set; }
 
 
         public decimal TotalAmount { get; set; }
-
         public decimal PaidAmount { get; set; }
-
         public decimal UnpaidAmount { get; set; }
-
         public string MonthString { get; set; }
-
         public decimal MonthTotalAmount { get; set; }
-
         public decimal MonthPaidAmount { get; set; }
-
         public string NextMonthString { get; set; }
-
         public decimal NextMonthTotalAmount { get; set; }
-
         public decimal NextMonthPaidAmount { get; set; }
+
+        public DateTime DisplayDateStart { get; set; }
+        public DateTime DisplayDateEnd { get; set; }
 
         public CompanyDebtViewModel(CompanyModel model)
         {
             Company = model;
 
-            CompanyPayments = CompanyPaymentService.GetCompanyPaymentsByCompany(Company);
-
-            FilteredCompanyPayments = new BindingList<CompanyPaymentModel>();
+            CompanyPayments = CompanyPaymentService.GetCompanyPayments(Company);
 
             if (CompanyPayments.Any())
             {
-                DisplayDateStart = CompanyPayments.OrderBy(s => s.TransactionDate).FirstOrDefault().TransactionDate;
-                DisplayDateEnd = CompanyPayments.OrderByDescending(s => s.TransactionDate).FirstOrDefault().TransactionDate;
+                DisplayDateStart = CompanyPayments.OrderBy(s => s.TransactionDate).First().TransactionDate;
+                DisplayDateEnd = CompanyPayments.OrderByDescending(s => s.TransactionDate).First().TransactionDate;
             }
+
+            FilteredCompanyPayments = new BindingList<CompanyPaymentModel>();
 
             foreach (var item in CompanyPayments)
                 FilteredCompanyPayments.Add(item);
@@ -121,6 +111,8 @@ namespace StockManagementSystem.UI
 
         private void CalculateAmounts()
         {
+            if (FilteredCompanyPayments.Count < 1) return;
+
             TotalAmount = FilteredCompanyPayments.Where(s => s.Type == 0).Sum(s => s.Amount);
             PaidAmount = FilteredCompanyPayments.Where(s => s.Type == 1).Sum(s => s.Amount);
             UnpaidAmount = TotalAmount - PaidAmount;

@@ -13,8 +13,8 @@ namespace StockManagementSystem.Library
         }
         public static void InsertClient(ClientModel model)
         {
-            string sql = "insert into Clients (FullName, IdentityNumber, Phone, Address, Note) " +
-                         "values (@FullName, @IdentityNumber, @Phone, @Address, @Note)";
+            string sql = "insert into Clients (FullName, IdentityNumber, Phone, Address, Note, Attachment) " +
+                         "values (@FullName, @IdentityNumber, @Phone, @Address, @Note, @Attachment)";
 
             var parameters = new Dictionary<string, object>
             {
@@ -22,7 +22,8 @@ namespace StockManagementSystem.Library
                 { "@FullName", model.FullName},
                 { "@Phone", model.Phone},
                 { "@Address", model.Address},
-                { "@Note", model.Note}
+                { "@Note", model.Note},
+                { "@Attachment", model.Attachment}
             };
 
             SqliteDataAccess.SaveData(sql, parameters);
@@ -30,7 +31,7 @@ namespace StockManagementSystem.Library
 
         public static void UpdateClient(ClientModel model)
         {
-            string sql = "update Clients set FullName=@FullName, IdentityNumber=@IdentityNumber, Phone=@Phone, Address=@Address, Note=@Note " +
+            string sql = "update Clients set FullName=@FullName, IdentityNumber=@IdentityNumber, Phone=@Phone, Address=@Address, Note=@Note, Attachment=@Attachment " +
                          "where Id=@Id";
 
             var parameters = new Dictionary<string, object>
@@ -40,7 +41,8 @@ namespace StockManagementSystem.Library
                 { "@FullName", model.FullName},
                 { "@Phone", model.Phone},
                 { "@Address", model.Address},
-                { "@Note", model.Note}
+                { "@Note", model.Note},
+                { "@Attachment", model.Attachment}
             };
 
             SqliteDataAccess.SaveData(sql, parameters);

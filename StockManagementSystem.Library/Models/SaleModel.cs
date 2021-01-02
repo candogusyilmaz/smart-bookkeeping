@@ -1,9 +1,4 @@
-﻿using StockManagementSystem.Library;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 
 namespace StockManagementSystem.Library
 {
@@ -18,7 +13,8 @@ namespace StockManagementSystem.Library
         private ClientModel _client;
         public ClientModel Client
         {
-            get {
+            get
+            {
                 if (_client == null)
                     _client = ClientService.Get(ClientId);
                 return _client;

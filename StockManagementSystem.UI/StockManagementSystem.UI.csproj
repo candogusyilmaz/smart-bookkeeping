@@ -69,18 +69,21 @@
     <Compile Include="DropShadowWindow.xaml.cs">
       <DependentUpon>DropShadowWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\AppSettingsHelper.cs" />
     <Compile Include="Helpers\ImageHelpers.cs" />
     <Compile Include="Helpers\PaymentTypeHelper.cs" />
     <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\ClientPaymentsArchiveViewModel.cs" />
     <Compile Include="ViewModels\ClientPaymentsViewModel.cs" />
     <Compile Include="ViewModels\ClientSalesViewModel.cs" />
+    <Compile Include="ViewModels\CompanyListViewModel.cs" />
     <Compile Include="ViewModels\CompanyDebtViewModel.cs" />
-    <Compile Include="ViewModels\CompanyDTO.cs" />
+    <Compile Include="ViewModels\HomepageViewModel.cs" />
     <Compile Include="ViewModels\SaleDetailsViewModel.cs" />
     <Compile Include="ViewModels\SaleDTO.cs" />
     <Compile Include="ViewModels\SalesListViewModel.cs" />
     <Compile Include="ViewModels\SaleViewViewModel.cs" />
+    <Compile Include="ViewModels\SettingsViewModel.cs" />
     <Compile Include="ViewModels\ShoppingCartViewModel.cs" />
     <Compile Include="Views\ClientPaymentsArchive.xaml.cs">
       <DependentUpon>ClientPaymentsArchive.xaml</DependentUpon>
@@ -108,6 +111,9 @@
     </Compile>
     <Compile Include="Views\ExpensesView.xaml.cs">
       <DependentUpon>ExpensesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Homepage.xaml.cs">
+      <DependentUpon>Homepage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\IncomesView.xaml.cs">
       <DependentUpon>IncomesView.xaml</DependentUpon>
@@ -147,6 +153,9 @@
     </Compile>
     <Compile Include="Windows\ProductWindow.xaml.cs">
       <DependentUpon>ProductWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="DropShadowWindow.xaml">
       <SubType>Designer</SubType>
@@ -228,6 +237,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Homepage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\IncomesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -277,6 +290,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Windows\ProductWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

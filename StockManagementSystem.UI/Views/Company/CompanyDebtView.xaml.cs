@@ -32,7 +32,6 @@ namespace StockManagementSystem.UI.Views
             dtHigh.SelectedDate = ViewModel.DisplayDateEnd;
         }
 
-
         private void NewCompanyPayment(object sender, RoutedEventArgs e)
         {
             DropShadowWindow window = new DropShadowWindow(new CompanyPaymentWindow(ViewModel.Company));

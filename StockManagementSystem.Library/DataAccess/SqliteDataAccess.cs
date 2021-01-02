@@ -1,7 +1,9 @@
 ﻿using Dapper;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SQLite;
+using System.IO;
 using System.Linq;
 
 namespace StockManagementSystem.Library
@@ -36,7 +38,7 @@ namespace StockManagementSystem.Library
             }
         }
 
-        public static DynamicParameters ToDynamicParameters(this Dictionary<string,object> parameters)
+        public static DynamicParameters ToDynamicParameters(this Dictionary<string, object> parameters)
         {
             if (parameters == null) return new DynamicParameters();
 
@@ -45,6 +47,11 @@ namespace StockManagementSystem.Library
             parameters.ToList().ForEach(s => p.Add(s.Key, s.Value));
 
             return p;
+        }
+
+        public static void Backup(string filename)
+        {
+            File.Copy(@".\AppDb.db", filename + "_" + DateTime.Now.ToString("yyyyMMddHHmmssffff"));
         }
     }
 }

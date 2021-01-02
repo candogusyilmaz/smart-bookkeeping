@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace StockManagementSystem.Library
+﻿namespace StockManagementSystem.Library
 {
     public class ClientModel
     {
@@ -14,6 +8,7 @@ namespace StockManagementSystem.Library
         public string Phone { get; set; }
         public string Address { get; set; }
         public string Note { get; set; }
+        public byte[] Attachment { get; set; }
 
         public override string ToString()
         {

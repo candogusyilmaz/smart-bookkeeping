@@ -45,7 +45,32 @@ namespace StockManagementSystem.UI.Windows
             Client.Address = txtAddress.Text;
             Client.Note = txtNote.Text;
 
+
+            try
+            {
+                Client.Attachment = attachment;
+            }
+            catch { isValid = false; }
+
             return isValid;
+        }
+
+        private byte[] attachment;
+        private void ChooseAttachment(object sender, RoutedEventArgs e)
+        {
+            Microsoft.Win32.OpenFileDialog ofd = new Microsoft.Win32.OpenFileDialog
+            {
+                Title = "Ek seçin",
+                Filter = "JPG Files (*.jpg)|*.jpg|JPEG Files (*.jpeg)|*.jpeg"
+            };
+
+            bool? result = ofd.ShowDialog();
+
+
+            if (result != true)
+                return;
+
+            attachment = ImageHelpers.ToByteArray(ofd.FileName);
         }
 
         private void SaveChanges(object sender, RoutedEventArgs e)
